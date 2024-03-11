@@ -15,8 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Route_List(unittest.TestCase):
 
     def setup(self):
-        logging.basicConfig(filename='test.log', level=logging.INFO,
-                            format='%(asctime)s:%(levelname)s:%(message)s')
+        logging.basicConfig(filename='test.log', level=logging.INFO)
         self.logger = logging.getLogger(__name__)
 
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
