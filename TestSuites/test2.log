@@ -1,0 +1,91 @@
+2024-03-08 20:12:41,156:INFO:Setting up test environment
+2024-03-08 20:12:50,645:INFO:Starting login test
+2024-03-08 20:12:57,013:INFO:Saved screenshot: Screenshots/invalid_login_2024-03-08_20-12-56.png
+2024-03-08 20:13:02,352:INFO:Saved screenshot: Screenshots/invalid_login_2024-03-08_20-13-02.png
+2024-03-08 20:13:17,737:ERROR:Error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x00007FF76556AD32+56930]
+	(No symbol) [0x00007FF7654DF632]
+	(No symbol) [0x00007FF7653942E5]
+	(No symbol) [0x00007FF7653D98ED]
+	(No symbol) [0x00007FF7653D9A2C]
+	(No symbol) [0x00007FF76541A967]
+	(No symbol) [0x00007FF7653FBCDF]
+	(No symbol) [0x00007FF7654181E2]
+	(No symbol) [0x00007FF7653FBA43]
+	(No symbol) [0x00007FF7653CD438]
+	(No symbol) [0x00007FF7653CE4D1]
+	GetHandleVerifier [0x00007FF7658E6ABD+3709933]
+	GetHandleVerifier [0x00007FF76593FFFD+4075821]
+	GetHandleVerifier [0x00007FF76593818F+4043455]
+	GetHandleVerifier [0x00007FF765609766+706710]
+	(No symbol) [0x00007FF7654EB90F]
+	(No symbol) [0x00007FF7654E6AF4]
+	(No symbol) [0x00007FF7654E6C4C]
+	(No symbol) [0x00007FF7654D6904]
+	BaseThreadInitThunk [0x00007FFEBA0F257D+29]
+	RtlUserThreadStart [0x00007FFEBC3EAA58+40]
+
+2024-03-08 20:13:17,737:INFO:Test completed successfully
+2024-03-08 20:13:17,737:INFO:Tearing down test environment
+2024-03-08 20:14:58,969:INFO:Test completed. Closing browser.
+2024-03-08 20:18:56,079:WARNING:Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B36A6690>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/d6e74cb1572e805f56f8bf02ecec42ca/title
+2024-03-08 20:19:00,164:WARNING:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B36A6840>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/d6e74cb1572e805f56f8bf02ecec42ca/title
+2024-03-08 20:19:04,262:WARNING:Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B36A4500>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/d6e74cb1572e805f56f8bf02ecec42ca/title
+2024-03-08 20:21:34,144:INFO:Setting up test environment
+2024-03-08 20:21:42,565:INFO:Starting login test
+2024-03-08 20:21:48,751:INFO:Saved screenshot: Screenshots/invalid_login_2024-03-08_20-21-48.png
+2024-03-08 20:22:04,147:ERROR:Error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x00007FF76556AD32+56930]
+	(No symbol) [0x00007FF7654DF632]
+	(No symbol) [0x00007FF7653942E5]
+	(No symbol) [0x00007FF7653D98ED]
+	(No symbol) [0x00007FF7653D9A2C]
+	(No symbol) [0x00007FF76541A967]
+	(No symbol) [0x00007FF7653FBCDF]
+	(No symbol) [0x00007FF7654181E2]
+	(No symbol) [0x00007FF7653FBA43]
+	(No symbol) [0x00007FF7653CD438]
+	(No symbol) [0x00007FF7653CE4D1]
+	GetHandleVerifier [0x00007FF7658E6ABD+3709933]
+	GetHandleVerifier [0x00007FF76593FFFD+4075821]
+	GetHandleVerifier [0x00007FF76593818F+4043455]
+	GetHandleVerifier [0x00007FF765609766+706710]
+	(No symbol) [0x00007FF7654EB90F]
+	(No symbol) [0x00007FF7654E6AF4]
+	(No symbol) [0x00007FF7654E6C4C]
+	(No symbol) [0x00007FF7654D6904]
+	BaseThreadInitThunk [0x00007FFEBA0F257D+29]
+	RtlUserThreadStart [0x00007FFEBC3EAA58+40]
+
+2024-03-08 20:22:19,530:ERROR:Error occurred: Message: 
+Stacktrace:
+	GetHandleVerifier [0x00007FF76556AD32+56930]
+	(No symbol) [0x00007FF7654DF632]
+	(No symbol) [0x00007FF7653942E5]
+	(No symbol) [0x00007FF7653D98ED]
+	(No symbol) [0x00007FF7653D9A2C]
+	(No symbol) [0x00007FF76541A967]
+	(No symbol) [0x00007FF7653FBCDF]
+	(No symbol) [0x00007FF7654181E2]
+	(No symbol) [0x00007FF7653FBA43]
+	(No symbol) [0x00007FF7653CD438]
+	(No symbol) [0x00007FF7653CE4D1]
+	GetHandleVerifier [0x00007FF7658E6ABD+3709933]
+	GetHandleVerifier [0x00007FF76593FFFD+4075821]
+	GetHandleVerifier [0x00007FF76593818F+4043455]
+	GetHandleVerifier [0x00007FF765609766+706710]
+	(No symbol) [0x00007FF7654EB90F]
+	(No symbol) [0x00007FF7654E6AF4]
+	(No symbol) [0x00007FF7654E6C4C]
+	(No symbol) [0x00007FF7654D6904]
+	BaseThreadInitThunk [0x00007FFEBA0F257D+29]
+	RtlUserThreadStart [0x00007FFEBC3EAA58+40]
+
+2024-03-08 20:22:19,530:INFO:Test completed successfully
+2024-03-08 20:22:19,530:INFO:Tearing down test environment
+2024-03-08 20:23:57,707:WARNING:Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B366D6A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c96beebd4a1a204aa04e9bfc6b2ba474/title
+2024-03-08 20:24:01,818:WARNING:Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B366F7A0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c96beebd4a1a204aa04e9bfc6b2ba474/title
+2024-03-08 20:24:05,890:WARNING:Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError('<urllib3.connection.HTTPConnection object at 0x000001B7B366E1E0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it')': /session/c96beebd4a1a204aa04e9bfc6b2ba474/title
+2024-03-08 20:25:15,762:INFO:Test completed. Closing browser.

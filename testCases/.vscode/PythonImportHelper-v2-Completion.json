@@ -1,0 +1,348 @@
+[
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "webdriver",
+        "importPath": "selenium",
+        "description": "selenium",
+        "isExtraImport": true,
+        "detail": "selenium",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "self",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "self",
+        "description": "self",
+        "detail": "self",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "By",
+        "importPath": "selenium.webdriver.common.by",
+        "description": "selenium.webdriver.common.by",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.common.by",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.wait",
+        "description": "selenium.webdriver.support.wait",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.wait",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.wait",
+        "description": "selenium.webdriver.support.wait",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.wait",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.wait",
+        "description": "selenium.webdriver.support.wait",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.wait",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverWait",
+        "importPath": "selenium.webdriver.support.wait",
+        "description": "selenium.webdriver.support.wait",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support.wait",
+        "documentation": {}
+    },
+    {
+        "label": "JobOrderP",
+        "importPath": "pageObjects.JobOrderP",
+        "description": "pageObjects.JobOrderP",
+        "isExtraImport": true,
+        "detail": "pageObjects.JobOrderP",
+        "documentation": {}
+    },
+    {
+        "label": "JobOrderP",
+        "importPath": "pageObjects.JobOrderP",
+        "description": "pageObjects.JobOrderP",
+        "isExtraImport": true,
+        "detail": "pageObjects.JobOrderP",
+        "documentation": {}
+    },
+    {
+        "label": "XLutils",
+        "importPath": "utilities",
+        "description": "utilities",
+        "isExtraImport": true,
+        "detail": "utilities",
+        "documentation": {}
+    },
+    {
+        "label": "XLutils",
+        "importPath": "utilities",
+        "description": "utilities",
+        "isExtraImport": true,
+        "detail": "utilities",
+        "documentation": {}
+    },
+    {
+        "label": "XLutils",
+        "importPath": "utilities",
+        "description": "utilities",
+        "isExtraImport": true,
+        "detail": "utilities",
+        "documentation": {}
+    },
+    {
+        "label": "XLutils",
+        "importPath": "utilities",
+        "description": "utilities",
+        "isExtraImport": true,
+        "detail": "utilities",
+        "documentation": {}
+    },
+    {
+        "label": "XLutils",
+        "importPath": "utilities",
+        "description": "utilities",
+        "isExtraImport": true,
+        "detail": "utilities",
+        "documentation": {}
+    },
+    {
+        "label": "Readconfig",
+        "importPath": "utilities.readdata",
+        "description": "utilities.readdata",
+        "isExtraImport": true,
+        "detail": "utilities.readdata",
+        "documentation": {}
+    },
+    {
+        "label": "Readconfig",
+        "importPath": "utilities.readdata",
+        "description": "utilities.readdata",
+        "isExtraImport": true,
+        "detail": "utilities.readdata",
+        "documentation": {}
+    },
+    {
+        "label": "Readconfig",
+        "importPath": "utilities.readdata",
+        "description": "utilities.readdata",
+        "isExtraImport": true,
+        "detail": "utilities.readdata",
+        "documentation": {}
+    },
+    {
+        "label": "Readconfig",
+        "importPath": "utilities.readdata",
+        "description": "utilities.readdata",
+        "isExtraImport": true,
+        "detail": "utilities.readdata",
+        "documentation": {}
+    },
+    {
+        "label": "Readconfig",
+        "importPath": "utilities.readdata",
+        "description": "utilities.readdata",
+        "isExtraImport": true,
+        "detail": "utilities.readdata",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "expected_conditions",
+        "importPath": "selenium.webdriver.support",
+        "description": "selenium.webdriver.support",
+        "isExtraImport": true,
+        "detail": "selenium.webdriver.support",
+        "documentation": {}
+    },
+    {
+        "label": "WebDriverException",
+        "importPath": "selenium.common",
+        "description": "selenium.common",
+        "isExtraImport": true,
+        "detail": "selenium.common",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "EC",
+        "importPath": "telnetlib",
+        "description": "telnetlib",
+        "isExtraImport": true,
+        "detail": "telnetlib",
+        "documentation": {}
+    },
+    {
+        "label": "Lead",
+        "importPath": "pageObjects.Leads",
+        "description": "pageObjects.Leads",
+        "isExtraImport": true,
+        "detail": "pageObjects.Leads",
+        "documentation": {}
+    },
+    {
+        "label": "null",
+        "importPath": "pyasn1.compat.octets",
+        "description": "pyasn1.compat.octets",
+        "isExtraImport": true,
+        "detail": "pyasn1.compat.octets",
+        "documentation": {}
+    },
+    {
+        "label": "RegisP",
+        "importPath": "pageObjects.RegistrationP",
+        "description": "pageObjects.RegistrationP",
+        "isExtraImport": true,
+        "detail": "pageObjects.RegistrationP",
+        "documentation": {}
+    },
+    {
+        "label": "LoginP",
+        "importPath": "pageObjects.loginPage",
+        "description": "pageObjects.loginPage",
+        "isExtraImport": true,
+        "detail": "pageObjects.loginPage",
+        "documentation": {}
+    },
+    {
+        "label": "setup",
+        "kind": 2,
+        "importPath": "conftest",
+        "description": "conftest",
+        "peekOfCode": "def setup():\n    driver = webdriver.Chrome()\n    return driver",
+        "detail": "conftest",
+        "documentation": {}
+    },
+    {
+        "label": "Test_002_Job",
+        "kind": 6,
+        "importPath": "job",
+        "description": "job",
+        "peekOfCode": "class Test_002_Job:\n    baseurl = Readconfig.getAppurl()\n    path = \"C:\\\\pythonProject\\\\Framework\\\\TestData\\\\Test_data_job.xlsx\"\n    def test_job_op(self, setup):\n        self.driver = setup\n        self.driver.get(self.baseurl)\n        self.driver.maximize_window()\n        self.jb = JobOrderP(self.driver)\n        self.rows = XLutils.getRowCount(self.path, 'Sheet1')\n        for r in range(2, self.rows + 1):",
+        "detail": "job",
+        "documentation": {}
+    },
+    {
+        "label": "Test_002_Job",
+        "kind": 6,
+        "importPath": "job_2",
+        "description": "job_2",
+        "peekOfCode": "class Test_002_Job:\n    baseurl = Readconfig.getAppurl()\n    path = \"C:\\\\pythonProject\\\\Framework\\\\TestData\\\\Test_data_job.xlsx\"\n    def test_job_op(self, setup):\n        self.driver = setup\n        self.driver.get(self.baseurl)\n        self.driver.maximize_window()\n        self.jb = JobOrderP(self.driver)\n        self.rows = XLutils.getRowCount(self.path, 'Sheet1')\n        self.user = XLutils.readData(self.path, 'Sheet1', 2, 1)",
+        "detail": "job_2",
+        "documentation": {}
+    },
+    {
+        "label": "Test_004_Leads",
+        "kind": 6,
+        "importPath": "Leads",
+        "description": "Leads",
+        "peekOfCode": "class Test_004_Leads:\n    baseurl = Readconfig.getAppurl()\n    path = \"C:\\\\pythonProject\\\\Framework\\\\TestData\\\\Leads_data.xlsx\"\n    def test_leads(self, setup):\n        self.driver = setup\n        self.driver.get(self.baseurl)\n        self.driver.maximize_window()\n        self.leads = Lead(self.driver)\n        self.rows = XLutils.getRowCount(self.path, 'Sheet1')\n        self.user = XLutils.readData(self.path, 'Sheet1', 2, 1)",
+        "detail": "Leads",
+        "documentation": {}
+    },
+    {
+        "label": "Test_003_Registration",
+        "kind": 6,
+        "importPath": "Registration",
+        "description": "Registration",
+        "peekOfCode": "class Test_003_Registration:\n    baseurl = Readconfig.getAppurl()\n    path = \"C:\\\\pythonProject\\\\Framework\\\\TestData\\\\Registration.xlsx\"\n    def test_Regis(self, setup):\n        self.driver = setup\n        self.driver.get(self.baseurl)\n        self.driver.maximize_window()\n        self.rp = RegisP(self.driver)\n        self.rows = XLutils.getRowCount(self.path, 'Sheet1')\n        print(\"Number of rows:\", self.rows)",
+        "detail": "Registration",
+        "documentation": {}
+    },
+    {
+        "label": "Test_001_Login",
+        "kind": 6,
+        "importPath": "Test_login",
+        "description": "Test_login",
+        "peekOfCode": "class Test_001_Login:\n    baseurl = Readconfig.getAppurl()\n    path = \"C:\\\\pythonProject\\\\Framework\\\\TestData\\\\Testdata_login.xlsx\"\n    def test_login(self, setup):\n        self.driver = setup\n        self.driver.get(self.baseurl)\n        self.driver.maximize_window()\n        # Creating object of LoginP page\n        self.lp = LoginP(self.driver)\n        self.rows = XLutils.getRowCount(self.path, 'Sheet1')",
+        "detail": "Test_login",
+        "documentation": {}
+    }
+]
