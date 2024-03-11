@@ -7,6 +7,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from selenium import webdriver
 from pageObjects.Prospects_to_Leads import prospects_to_leadsP
 import datetime
+import os
 
 
 class prospects_To_leads(unittest.TestCase):
@@ -29,33 +30,58 @@ class prospects_To_leads(unittest.TestCase):
         self.driver.get("https://hirebaseproto.tktechnico.com/login")
 
     def test_Login(self):
-        df = pd.DataFrame(self.sheet.get_records())
-        self.prospects_To_leads = prospects_to_leadsP(self.driver)
-        for index, row in df.iterrows():
-            if index == 0:
-                self.prospects_To_leads.Username(row['Username'])
+        try:
+            df = pd.DataFrame(self.sheet.get_records())
+            self.prospects_To_leads = prospects_to_leadsP(self.driver)
+            for index, row in df.iterrows():
+                if index == 0:
+                    self.prospects_To_leads.Username(row['Username'])
+                    time.sleep(2)
+                    self.prospects_To_leads.Password(row['Password'])
+                    time.sleep(2)
+                    self.prospects_To_leads.login_button()
                 time.sleep(2)
-                self.prospects_To_leads.Password(row['Password'])
-                time.sleep(2)
-                self.prospects_To_leads.login_button()
-            time.sleep(2)
 
-            self.prospects_To_leads.dropdown()
-            time.sleep(2)
-            self.prospects_To_leads.prospects()
-            time.sleep(1)
-            self.prospects_To_leads.location_drop()
-            time.sleep(1)
-            self.prospects_To_leads.filter()
-            time.sleep(1)
-            self.prospects_To_leads.add_as_lead()
-            time.sleep(1)
-            self.prospects_To_leads.save()
-            break
+                self.prospects_To_leads.dropdown()
+                time.sleep(2)
+                self.prospects_To_leads.prospects()
+                time.sleep(1)
+                self.prospects_To_leads.location_drop()
+                time.sleep(1)
+                self.prospects_To_leads.filter()
+                time.sleep(1)
+                self.prospects_To_leads.add_as_lead()
+                time.sleep(1)
+                self.prospects_To_leads.save()
+                success_message = self.prospects_To_leads.get_success_message()
+                assert "Lead added successfully" in success_message, "Lead addition failed"
+        except Exception as e:
+            self.logger.error(f"An error occurred: {str(e)}")
+            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            folder_name = "Screenshots"
+            if not os.path.exists(folder_name):
+                os.makedirs(folder_name)
+            filename = f"{folder_name}/error_{current_datetime}.png"
+            self.driver.save_screenshot(filename)
+            self.logger.info(f"Screenshot saved: {filename}")
+            raise e
 
     def tearDown(self):
-        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f"final_screenshot_{current_datetime}.png"
-        self.driver.save_screenshot(filename)
-        self.logger.info("Test completed. Closing browser.")
-        self.driver.quit()
+        try:
+            current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            filename = f"screenshot_{current_datetime}.png"
+            folder_name = "Screenshots"
+            if not os.path.exists(folder_name):
+                os.makedirs(folder_name)
+            full_path = os.path.join(folder_name, filename)
+            self.driver.save_screenshot(full_path)
+            self.logger.info(f"Screenshot saved: {full_path}")
+            self.logger.info("Test completed. Closing browser.")
+            self.driver.quit()
+        except Exception as e:
+            self.logger.error(f"An error occurred during teardown: {str(e)}")
+            raise e
+
+
+if __name__ == "__main__":
+    unittest.main()

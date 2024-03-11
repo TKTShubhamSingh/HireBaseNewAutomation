@@ -1,6 +1,7 @@
 import logging
 import time
 import unittest
+import os
 
 import gspread
 import pandas as pd
@@ -14,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class Route_List(unittest.TestCase):
 
-    def setup(self):
+    def setUp(self):
         logging.basicConfig(filename='test.log', level=logging.INFO)
         self.logger = logging.getLogger(__name__)
 
@@ -25,27 +26,26 @@ class Route_List(unittest.TestCase):
         spreadsheet = client.open("Leads")
         self.sheet = spreadsheet.worksheet('Sheet3')
         self.driver = webdriver.Chrome()
-       # self.driver.get(self.baseurl)
         self.driver.maximize_window()
         self.driver.get("https://hirebaseproto.tktechnico.com/login")
 
-    def Route_list1(self):
+    def test_Route_list(self):
+        try:
+            df = pd.DataFrame(self.sheet.get_records())
+            self.route_list = Route_listP(self.driver)
 
-        df = pd.DataFrame(self.sheet.get_records())
-        self.route_list = Route_listP(self.driver)
-
-        for index, row in df.iterrows():
-            self.route_list.username(row['Username'])
-            time.sleep(1)
-            self.route_list.password(row['Password'])
-            time.sleep(1)
-            self.route_list.login_button()
-            time.sleep(1)
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(
-                    (By.XPATH, "/html[1]/body[1]/div[1]/nav[1]/div[1]/div[1]/ul[2]/li[3]/a[1]")))
-            title = self.driver.title
-            if "Hirebase" in title:
+            for index, row in df.iterrows():
+                self.route_list.username(row['Username'])
+                time.sleep(1)
+                self.route_list.password(row['Password'])
+                time.sleep(1)
+                self.route_list.login_button()
+                time.sleep(1)
+                WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located(
+                        (By.XPATH, "/html[1]/body[1]/div[1]/nav[1]/div[1]/div[1]/ul[2]/li[3]/a[1]")))
+                title = self.driver.title
+                assert "Hirebase" in title, "Title does not match expected value"
                 self.route_list.drop_down()
                 time.sleep(1)
                 self.route_list.Route_list()
@@ -67,8 +67,30 @@ class Route_List(unittest.TestCase):
 
                 print("title=>" + title)
                 break
-            else:
-                print("title not matched")
+        except AssertionError as ae:
+            self.logger.error(f"Assertion error occurred: {str(ae)}")
+            current_datetime = time.strftime("%Y-%m-%d_%H-%M-%S")
+            folder_name = "Screenshots"
+            if not os.path.exists(folder_name):
+                os.makedirs(folder_name)
+            filename = f"{folder_name}/assertion_error_{current_datetime}.png"
+            self.driver.save_screenshot(filename)
+            self.logger.info(f"Screenshot saved: {filename}")
+            raise ae
+        except Exception as e:
+            self.logger.error(f"An error occurred: {str(e)}")
+            current_datetime = time.strftime("%Y-%m-%d_%H-%M-%S")
+            folder_name = "Screenshots"
+            if not os.path.exists(folder_name):
+                os.makedirs(folder_name)
+            filename = f"{folder_name}/error_{current_datetime}.png"
+            self.driver.save_screenshot(filename)
+            self.logger.info(f"Screenshot saved: {filename}")
+            raise e
 
     def tearDown(self):
         self.driver.quit()
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -48,17 +48,17 @@ class Login_test(unittest.TestCase):
                     invalid_login_element = WebDriverWait(self.driver, 10).until(
                         EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Invalid login attempt.')]"))
                     )
-                    if invalid_login_element:
-                        current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-                        folder_name = "Screenshots"
-                        if not os.path.exists("C:\\pythonProject\\Framework\\Screenshots"):
-                            os.makedirs(folder_name)
-                        filename = f"{folder_name}/invalid_login_{current_datetime}.png"
-                        self.driver.save_screenshot(filename)
-                        self.logger.info(f'Saved screenshot: {filename}')
+                    assert invalid_login_element, "Invalid login attempt message not found"
+                    current_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                    folder_name = "Screenshots"
+                    if not os.path.exists("C:\\pythonProject\\Framework\\Screenshots"):
+                        os.makedirs(folder_name)
+                    filename = f"{folder_name}/invalid_login_{current_datetime}.png"
+                    self.driver.save_screenshot(filename)
+                    self.logger.info(f'Saved screenshot: {filename}')
                 except Exception as e:
                     self.logger.error(f'Error occurred: {str(e)}')
-                    pass  # Continue if element not found or timeout occurs
+                    assert False, f"Exception occurred: {str(e)}"
             else:
                 self.logger.info('Test completed successfully')
                 break
@@ -66,3 +66,7 @@ class Login_test(unittest.TestCase):
     def tearDown(self):
         self.logger.info('Tearing down test environment')
         self.driver.quit()
+
+
+if __name__ == "__main__":
+    unittest.main()

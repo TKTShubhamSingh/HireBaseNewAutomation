@@ -11,7 +11,7 @@ from testCases.Route_List import Route_List
 from testCases.Leads import Leads
 from testCases.addingLocation import adding_Location
 from testCases.Settings import Adding_team_member
-from testCases.Add_appointment import Test_007_Adding_appointment
+from testCases.Add_appointment import Adding_appointment
 
 if __name__ == '__main__':
     suite = unittest.TestSuite()
