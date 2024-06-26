@@ -21,7 +21,7 @@ class edit_details(unittest.TestCase):
         spreadsheet = client.open("Leads")
         self.sheet = spreadsheet.worksheet('Sheet1')
 
-    def edit_detail(self):
+    def test_edit_detail(self):
         self.driver = webdriver.Chrome()
         self.driver.get("https://hirebaseproto.tktechnico.com")
         self.driver.maximize_window()

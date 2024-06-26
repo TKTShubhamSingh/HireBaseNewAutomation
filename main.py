@@ -12,7 +12,7 @@ from testCases.Leads import Leads
 from testCases.addingLocation import adding_Location
 from testCases.Settings import Adding_team_member
 from testCases.Add_appointment import Adding_appointment
-
+from testCases.deleting_clients import Deleting_clients
 if __name__ == '__main__':
     suite = unittest.TestSuite()
 

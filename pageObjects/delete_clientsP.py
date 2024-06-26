@@ -18,8 +18,7 @@ class delete_clientsP:
         self.driver.find_element(By.CSS_SELECTOR, ".bg-transparent > img").click()
 
     def delete_button(self):
-        self.driver.find_element(By.XPATH, "//td[@class='e-rowcell e-templatecell e-selectionbackground "
-                                           "e-active']//i[@class='fa fa-trash ps-3']").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".e-row:nth-child(1) .fa-trash").click()
 
     def yes(self):
         self.driver.find_element(By.XPATH, "//button[contains(@title,'Accept changes')]").click()

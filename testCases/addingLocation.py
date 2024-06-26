@@ -8,11 +8,9 @@ from selenium import webdriver
 from pageObjects.locationP import locationP
 
 
-class adding_Location (unittest.TestCase):
-
+class adding_Location(unittest.TestCase):
     def setUp(self):
-        logging.basicConfig(filename='test.log', level=logging.INFO, format='%(asctime)s:%(levelname)s:%(message)s')
-        self.logger = logging.getLogger(__name__)
+        logging.basicConfig(filename='test.log', level=logging.INFO)
 
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name(
@@ -69,7 +67,5 @@ class adding_Location (unittest.TestCase):
                 print("title not matched")
             self.driver.quit()
 
-
-
-
-
+    def tearDown(self):
+        self.driver.quit()
