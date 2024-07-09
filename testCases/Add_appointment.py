@@ -1,13 +1,11 @@
 import time
 import unittest
 import os
-
 import gspread
 import pandas as pd
 from gspread import Worksheet
 from oauth2client.service_account import ServiceAccountCredentials
 from selenium import webdriver
-
 from pageObjects.Adding_appointment import Adding_appointmentP
 from utilities.readdata import Readconfig
 
