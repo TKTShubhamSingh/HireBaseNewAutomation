@@ -16,8 +16,9 @@ class AddingClientTest(unittest.TestCase):
         self.logger.info("Setting up test environment")
 
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name(
-            "C:\\pythonProject\\Framework\\TestData\\hiredata.json", scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\Framework\\TestData"
+                                                                 "\\HireBase_data.json"
+                                                                 , scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")
         self.sheet = spreadsheet.worksheet('Sheet1')
