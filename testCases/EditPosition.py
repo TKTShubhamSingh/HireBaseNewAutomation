@@ -8,20 +8,20 @@ import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from pageObjects.DeletingPosition import DeletingPositions
+
+from pageObjects.EditingPosition import EditingPosition
 
 
-class DeletingPosition(unittest.TestCase):
-
+class EditPosition(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name(
             "C:\\pythonProject\\Framework\\TestData\\hiredata.json", scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open('Leads')
-        cls.sheet = spreadsheet.worksheet("Sheet1")
-
+        cls.sheet = spreadsheet.worksheet('Sheet1')
         logging.basicConfig(level=logging.INFO,
                             handlers=[logging.FileHandler("log/automation.log"), logging.StreamHandler()])
         cls.logger = logging.getLogger(__name__)
@@ -31,50 +31,51 @@ class DeletingPosition(unittest.TestCase):
         self.driver.maximize_window()
         self.wait = WebDriverWait(self.driver, 10)
 
-    def take_Screenshot(self, name):
-        timestamp = time.strftime("%Y%m%d-%H%M%S")
-        screenshot_name = os.path.join('Screenshots', f"{name}_{timestamp}.png")
-        self.driver.save_screenshot(screenshot_name)
-        self.logger.info(f"Screenshot saved: {screenshot_name}")
-
-    def test_DeletingPostiton(self):
+    def take_screenShot(self, name):
         try:
-            self.driver.get("https://hirebaseproto.tktechnico.com/login")
+            timestamp = time.strftime("%Y%m%d-%H%M%S")
+            screenShotName = os.path.join('Screenshots', f"{name}_{timestamp}.png")
+            self.driver.save_screenshot(screenShotName)
+            self.logger.info(f"Screenshot saved: {screenShotName}")
+        except Exception as e:
+            self.logger.error(f"Error taking screenshot: {e}")
+
+    def test_EditPosition(self):
+        try:
+            self.driver.get("https://hirebaseproto.tktechnico.com/")
+            self.logger.info("Navigate to the application")
             df = pd.DataFrame(self.sheet.get_all_records())
-            self.DeletingPosition = DeletingPositions(self.driver)
+            self.EditPosition = EditingPosition(self.driver)
 
             for index, row in df.iterrows():
                 if index == 0:
-                    self.DeletingPosition.username(row['Username'])
-                    self.DeletingPosition.password(row['Password'])
-                    self.DeletingPosition.login()
-                    self.take_Screenshot("LoginScreen")
+                    self.EditPosition.username(row['Username'])
+                    self.EditPosition.password(row['Password'])
+                    self.EditPosition.login()
 
                     self.wait.until(EC.url_to_be("https://hirebaseproto.tktechnico.com/dashboard"))
                     self.logger.info(f"Current URL: {self.driver.current_url}")
                     self.assertEqual(self.driver.current_url, "https://hirebaseproto.tktechnico.com/dashboard",
                                      "URL after login does not match expected URL.")
+                    time.sleep(2)
+                    self.EditPosition.clickSettings()
                     time.sleep(1)
-                    self.DeletingPosition.click_Settings()
+                    self.EditPosition.clickPosition()
+                    self.EditPosition.searchPosition(row['searchPosition'])
+                    self.EditPosition.clickEdit()
                     time.sleep(1)
-                    self.DeletingPosition.click_Position()
-                    time.sleep(1)
-                    self.take_Screenshot("Positions")
-                    time.sleep(1)
-                    self.DeletingPosition.searchPosition(row['Dposition'])
-                    time.sleep(1)
-                    self.DeletingPosition.click_delete()
-                    time.sleep(1)
-                    self.DeletingPosition.delete_confirmation()
+                    self.EditPosition.enterNewPosition(row['enterNewPosition'])
+                    self.EditPosition.save()
                     time.sleep(5)
 
+
         except Exception as e:
-            self.logger.error(f"Test failed: {e}")
-            self.take_Screenshot("Error")
-            self.fail(f"Test failed due to error: {e}")
+            self.logger.info(f"Error occurred: {e}")
+            self.fail(f"Test failed due to:{e}")
 
     def tearDown(self):
         self.driver.quit()
+        self.logger.info("TearDown completed successfully.")
 
 
 if __name__ == "__main__":

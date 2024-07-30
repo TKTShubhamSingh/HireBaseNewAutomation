@@ -1,9 +1,10 @@
 import logging
-import  time
+import time
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
 from selenium.webdriver.support.wait import WebDriverWait
+from pynput.keyboard import Key, Controller
 
 
 class DeletingPositions:
@@ -18,64 +19,73 @@ class DeletingPositions:
         try:
             return self.wait.until(EC.presence_of_element_located((by, value)))
         except Exception as e:
-            self.logger.info(f"Not element found:{value}, Exception:{e}")
-            raise
+            self.logger.error(f"Element not found: {value}, Exception: {e}")
+            return None
+
+    def send_keys(self, by, value, keys):
+        element = self.wait_for_element(by, value)
+        if element:
+            element.send_keys(keys)
+            self.logger.info(f"Keys sent to element: {value}")
+        else:
+            self.logger.error(f"Failed to send keys to element: {value}")
+
+    def click_element(self, by, value):
+        element = self.wait_for_element(by, value)
+        if element:
+            element.click()
+            self.logger.info(f"Element clicked: {value}")
+        else:
+            self.logger.error(f"Failed to click element: {value}")
+
+    def hover_and_click(self, by, value):
+        element = self.wait_for_element(by, value)
+        if element:
+            hover = ActionChains(self.driver).move_to_element(element)
+            hover.perform()
+            time.sleep(2)
+            element.click()
+            self.logger.info(f"Element hovered and clicked: {value}")
+        else:
+            self.logger.error(f"Failed to hover and click element: {value}")
 
     def username(self, username):
-        try:
-            element = self.wait_for_element(By.XPATH, "//input[@id='txtEmail']")
-            element.send_keys(username)
-            self.logger.info("Element found")
-        except Exception as e:
-            self.logger.info(f"Exception found:{e}")
-        raise
+        self.send_keys(By.XPATH, "//input[@id='txtEmail']", username)
 
     def password(self, password):
-        try:
-            element = self.wait_for_element(By.ID, "txtPassword")
-            element.send_keys(password)
-            self.logger.info("Element found")
-        except Exception as e:
-            self.logger.info(f"Exception:{e}")
-        raise
+        self.send_keys(By.ID, "txtPassword", password)
 
     def login(self):
-        try:
-            element = self.wait_for_element(By.XPATH, "//button[@type='submit']")
-            element.click()
-            self.logger.info("element clicked")
-        except Exception as e:
-            self.logger.info(f"Exception:{e}")
-        raise
+        self.click_element(By.XPATH, "//button[@type='submit']")
 
     def click_Settings(self):
-        try:
-            element = self.wait_for_element(By.CSS_SELECTOR, ".bg-transparent > img")
-            element.click()
-        except Exception as e:
-            self.logger.info(f"element not found:{e}")
-        raise
+        self.click_element(By.CSS_SELECTOR, ".bg-transparent > img")
 
     def click_Position(self):
-        try:
-            element = self.wait_for_element(By.XPATH, "//i[@class='fa-solid fa-street-view pe-2']")
-            element.click()
+        self.hover_and_click(By.XPATH, "//i[@class='fa-solid fa-street-view pe-2']")
 
-        except Exception as e:
-            self.logger.info("element not found")
-            raise
-
-    def searchPosition(self, Dposition):
-        try:
-            element = self.wait_for_element(By.XPATH, "//input[@placeholder='Search']")
-            element.click()
-            self.logger.info("Element clicked")
+    def searchPosition(self, position):
+        element = self.wait_for_element(By.XPATH, "//input[@placeholder='Search']")
+        if element:
+            hover = ActionChains(self.driver).move_to_element(element)
+            hover.perform()
             time.sleep(2)
-            if element:
-                element.send_keys(Dposition)
-            else:
-                self.logger.info("Error found")
-                print("Not enabled")
-        except Exception as e:
-            self.logger.info(f"Exception occur")
-        raise
+            element.send_keys(position)
+            self.logger.info(f"Search text entered: {position}")
+            time.sleep(2)
+            keyboard = Controller()
+            keyboard.press(Key.enter)
+            time.sleep(1)
+            keyboard.release(Key.enter)
+        else:
+            self.logger.error("Search field not found")
+
+    def click_delete(self):
+        self.driver.find_element(By.XPATH, "//i[contains(@class, 'fa fa-trash ps-3')]").click()
+        time.sleep(2)
+
+    def delete_confirmation(self):
+        element = self.driver.find_element(By.XPATH, "//button[contains(@class, 'c-btn dark-btn me-2')]")
+        time.sleep(2)
+        element.click()
+

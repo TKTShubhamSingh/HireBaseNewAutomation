@@ -70,7 +70,7 @@ class Skill(unittest.TestCase):
                     time.sleep(2)
 
                     self.Skills.skills()
-
+                    time.sleep(2)
                     self.Skills.AddnewSkill(row['Skillname'])
 
                     time.sleep(2)

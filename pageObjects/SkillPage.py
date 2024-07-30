@@ -1,19 +1,27 @@
+import logging
 import time
+
+from selenium.common import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 
+from pageObjects.Methods import Methods
+
 
 class SkillPage:
     def __init__(self, driver):
         self.driver = driver
+        self.methods = Methods(self.driver)
+        self.logger = logging.getLogger(__name__)
 
-    def username(self, username):
+    def username(self, Username):
         try:
-            self.driver.find_element(By.ID, "txtEmail").send_keys(username)
+            self.methods.enter_text(By.ID, "txtEmail", Username)
+            self.logger.info("element found")
         except Exception as e:
-            raise Exception(f"Error entering username: {e}")
+            raise NoSuchElementException(f"Element not found: {e}")
 
     def password(self, password):
         try:
@@ -41,6 +49,7 @@ class SkillPage:
 
     def AddnewSkill(self, Skillname):
         try:
+
             self.driver.find_element(By.XPATH, "//button[@class='c-btn dark-btn']").click()
         except Exception as e:
             raise Exception(f"Error clicking Add new skill button: {e}")
