@@ -53,6 +53,9 @@ class Delete_Team(unittest.TestCase):
                     assert act_title == "Hirebase", f"but got {act_title}"
                     self.DeleteTeam.click_Settings()
                     self.DeleteTeam.Team()
+                    self.Methods.take_Screenshot("Team")
+                    time.sleep(3)
+                    self.DeleteTeam.search(row['sname'])
                     time.sleep(2)
 
         except Exception as e:

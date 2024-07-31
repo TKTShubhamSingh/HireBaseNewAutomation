@@ -1,4 +1,6 @@
 import logging
+import time
+
 from selenium.common import NoSuchElementException, ElementNotVisibleException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -43,3 +45,16 @@ class DeleteTeam:
             self.Methods.hover_and_click(By.XPATH, "//a[@class='active']")
         except Exception as e:
             raise ElementNotVisibleException(f"Element not found:{e}")
+
+    def search(self, sname):
+        try:
+            self.Methods.click_element(By.CSS_SELECTOR, "#grid_1760696226_0_searchbar")
+            time.sleep(1)
+            self.Methods.enter_text(By.CSS_SELECTOR, "#grid_1760696226_0_searchbar", sname)
+            print("values send")
+            time.sleep(1)
+            self.Methods.hover_and_click(By.CSS_SELECTOR, "#grid_1760696226_0_searchbutton")
+        except Exception as e:
+            raise ElementNotVisibleException(f"Exception caught:{e}")
+
+

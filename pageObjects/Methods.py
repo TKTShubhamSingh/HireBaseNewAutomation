@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
 from selenium.common.exceptions import TimeoutException, ElementNotInteractableException
 
+
 class Methods:
     def __init__(self, driver):
         self.driver = driver
@@ -23,7 +24,6 @@ class Methods:
         screenshot_name = os.path.join('Screenshots', f"{name}_{timestamp}.png")
         self.driver.save_screenshot(screenshot_name)
         self.logger.info(f"Screenshot saved: {screenshot_name}")
-
 
     def wait_for_element(self, by, value):
         try:
