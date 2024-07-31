@@ -8,17 +8,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from pageObjects.DeleteTeam import DeleteTeam
+from pageObjects.ChangeTeamPasword import ChangeTeamPasword
 from pageObjects.Methods import Methods
 
 
-class Delete_Team(unittest.TestCase):
+class Change_TeamPasword(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\Framework\\TestData"
-                                                                 "\\HireBase_data.json"
-                                                                 , scope)
+                                                                 "\\HireBase_data.json", scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")
         cls.sheet = spreadsheet.worksheet('Sheet1')
@@ -33,7 +32,7 @@ class Delete_Team(unittest.TestCase):
         try:
             self.driver.get("https://hirebaseproto.tktechnico.com/")
             df = pd.DataFrame(self.sheet.get_all_records())
-            self.DeleteTeam = DeleteTeam(self.driver)
+            self.DeleteTeam = ChangeTeamPasword(self.driver)
             self.Methods = Methods(self.driver)
 
             for index, row in df.iterrows():
@@ -53,10 +52,21 @@ class Delete_Team(unittest.TestCase):
                     assert act_title == "Hirebase", f"but got {act_title}"
                     self.DeleteTeam.click_Settings()
                     self.DeleteTeam.Team()
+                    time.sleep(1)
+                    element = self.driver.find_element(By.CSS_SELECTOR, ".detail-container-title")
+                    text = element.text
+                    time.sleep(4)
+                    self.assertIn('Team', text, "Text not found in the specified element")
                     self.Methods.take_Screenshot("Team")
                     time.sleep(3)
                     self.DeleteTeam.search(row['sname'])
                     time.sleep(2)
+                    self.DeleteTeam.Change_password(row['dname'], row['dmail'])
+                    time.sleep(10)
+                    self.DeleteTeam.Change_pwd()
+                    time.sleep(10)
+
+
 
         except Exception as e:
             self.logger.info(f"{e}: Exception occurred")
