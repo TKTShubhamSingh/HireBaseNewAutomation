@@ -73,34 +73,95 @@ class ChangeTeamPasword:
 
     def Change_password(self, dname, dmail):
         try:
+            print("Trying to find element")
             rows = self.driver.find_elements(By.CSS_SELECTOR, '.e-rowcell.e-focus.e-selectionbackground.e-active')
             for row in rows:
-                row_name = row.find_element(By.XPATH,
-                                            '//body[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div['
-                                            '2]/div[1]/div[4]/div[1]/table[1]/tbody[1]/tr[3]/td[1]').text
-                row_email = row.find_element(By.CSS_SELECTOR, 'div.my-container.active-cont div.app-container '
-                                                              'div.px-3.pt-3 div.row div.col-md-10 '
-                                                              'div.default-root-container.detail-container '
-                                                              'div.col-md-12 div.row.p-3:nth-child(2) '
-                                                              'div.e-control.e-grid.e-lib.e-gridhover.e-grid-min'
-                                                              '-height.e-responsive.e-default.e-droppable.e-resize'
-                                                              '-lines.e-tooltip.e-keyboard div.e-gridcontent '
-                                                              'div.e-content table.e-table tbody:nth-child(2) '
-                                                              'tr.e-row:nth-child(3) > '
-                                                              'td.e-rowcell.e-focus.e-selectionbackground.e-active'
-                                                              ':nth-child(4)').text
+                print("finding nemo")
+                row_name = row.find_element(By.CSS_SELECTOR,
+                                            '.e-row:nth-child(3) > .e-rowcell:nth-child(1)').text
+                print("Trying to find element 2")
+                row_email = row.find_element(By.CSS_SELECTOR, '').text
+                print("row name and email ")
                 if row_name == dname and row_email == dmail:
                     change_password = row.find_element(By.XPATH, '//tbody/tr[3]/td[7]/div[1]/i[2]')
+                    print("change password button not clicked")
                     change_password.click()
+                    print("change password button clicked")
                     self.logger.info(f"Deleted profile: {dname}, {dmail}")
                     break
         except Exception as e:
             raise ElementNotVisibleException(f"Exception caught: {e}")
 
     def Change_pwd(self):
-        data = self.get_data_from_sheet()
-        for record in data:
-            dname = record['Name']
-            dmail = record['Email']
-            self.search(dname)
-            self.Change_password(dname, dmail)
+        try:
+            data = self.get_data_from_sheet()
+            for record in data:
+                dname = record['dname']
+                dmail = record['dmail']
+                self.search(dname)
+                self.Change_password(dname, dmail)
+        except Exception as e:
+            raise ElementNotVisibleException(f"Exception caught: {e}")
+
+    def clickPwd(self):
+        try:
+            self.Methods.click_element(By.XPATH, "//tbody/tr[3]/td[7]/div[1]/i[2]")
+            self.logger.info("Element found and clicked")
+        except Exception as e:
+            raise ElementNotVisibleException(f"Exception caught:{e}")
+
+    from selenium.webdriver.common.by import By
+    from selenium.common.exceptions import NoSuchElementException
+
+    def new_pass(self, pass_1, pass_2):
+        try:
+            # Locate the password field
+            elements_1 = self.driver.find_elements(By.XPATH, "//input[@id='txtPassword']")
+            if elements_1:
+                element_1 = elements_1[0]
+                element_1.send_keys(pass_1)
+
+                # Locate the eye icon or relevant element
+                element = self.driver.find_element(By.CSS_SELECTOR,
+                                                   "body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "span:nth-child(2) > i:nth-child(1)")
+                if element:
+                    element.click()
+                print("Password field found and updated")
+            else:
+                raise NoSuchElementException("Password input field not found")
+
+            # Locate the confirm password field
+            elements_2 = self.driver.find_elements(By.XPATH, "//input[@id='txtConfirmPassword']")
+            if elements_2:
+                element_2 = elements_2[0]
+                element_2.send_keys(pass_2)
+
+                # Locate the eye icon or relevant element for confirmation
+                element = self.driver.find_element(By.CSS_SELECTOR,
+                                                   "body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "span:nth-child(2) > i:nth-child(1)")
+                if element:
+                    element.click()
+                print("Confirm password field found and updated")
+            else:
+                raise NoSuchElementException("Confirm password input field not found")
+
+        except NoSuchElementException as e:
+            print(f"An error occurred: {e}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+
+
+    def click_save(self):
+        try:
+            self.Methods.click_element(By.XPATH, "//button[@class='c-btn dark-btn  ']")
+            self.logger.info("Element found and updated")
+
+        except Exception as e:
+            raise NoSuchElementException(f"Exception caught:{e}")
+

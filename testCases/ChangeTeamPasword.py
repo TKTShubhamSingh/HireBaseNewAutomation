@@ -58,16 +58,13 @@ class Change_TeamPasword(unittest.TestCase):
                     time.sleep(4)
                     self.assertIn('Team', text, "Text not found in the specified element")
                     self.Methods.take_Screenshot("Team")
-                    time.sleep(3)
+                    time.sleep(1)
                     self.DeleteTeam.search(row['sname'])
-                    time.sleep(2)
-                    self.DeleteTeam.Change_password(row['dname'], row['dmail'])
-                    time.sleep(10)
-                    self.DeleteTeam.Change_pwd()
-                    time.sleep(10)
-
-
-
+                    time.sleep(1)
+                    self.DeleteTeam.clickPwd()
+                    time.sleep(1)
+                    self.DeleteTeam.new_pass(row['pass_1'], row['pass_2'])
+                    time.sleep(3)
         except Exception as e:
             self.logger.info(f"{e}: Exception occurred")
 
