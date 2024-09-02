@@ -50,8 +50,6 @@ class EditCrmLeads(unittest.TestCase):
                     )
                     self.CrmLeads.CrmDropDown()
                     self.CrmLeads.Crm()
-
-
                     time.sleep(5)
 
 
