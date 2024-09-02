@@ -19,6 +19,7 @@ class EditCrm_Leads:
         creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json", scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open('Leads')
+
         sheet = spreadsheet.worksheet('Sheet1')
         data = sheet.get_all_records()
         self.df = pd.DataFrame(data)
