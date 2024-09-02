@@ -14,8 +14,7 @@ class Delete_status:
         self.Methods = Methods(self.driver)
 
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\Framework\\TestData"
-                                                                 "\\HireBase_data.json", scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json", scope)
 
         client = gspread.authorize(creds)
         spreadsheet = client.open('Leads')

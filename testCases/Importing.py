@@ -15,7 +15,7 @@ class Importing(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name("C:/pythonProject/Framework/TestData/hiredata.json",
+        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json",
                                                                  scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")

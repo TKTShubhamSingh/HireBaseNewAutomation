@@ -62,7 +62,7 @@ class ChangeTeamPasword:
     def get_data_from_sheet(self):
         try:
             scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-            creds = ServiceAccountCredentials.from_json_keyfile_name('path/to/credentials.json', scope)
+            creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json", scope)
             client = gspread.authorize(creds)
             sheet = client.open("Leads").sheet1
             data = sheet.get_all_records()

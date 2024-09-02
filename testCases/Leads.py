@@ -17,7 +17,7 @@ class Leads(unittest.TestCase):
 
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name(
-            "C:\\pythonProject\\Framework\\TestData\\hiredata.json", scope)
+            "C:\\pythonProject\\HireBase_data.jsonn", scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")
         self.sheet = spreadsheet.worksheet('Sheet1')

@@ -13,8 +13,7 @@ from pageObjects.delete_clientsP import delete_clientsP
 class Deleting_clients(unittest.TestCase):
     def setUp(self):
         scope = ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\Framework\\TestData"
-                                                                 "\\HireBase_data.json"
+        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json"
                                                                  , scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")

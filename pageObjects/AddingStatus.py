@@ -21,8 +21,7 @@ class Adding_status:
         self.logger = logging.getLogger(__name__)
 
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\Framework\\TestData"
-                                                                 "\\HireBase_data.json", scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_name("C:\\pythonProject\\HireBase_data.json", scope)
         client = gspread.authorize(creds)
         spreadsheet = client.open("Leads")
         sheet = spreadsheet.sheet1
