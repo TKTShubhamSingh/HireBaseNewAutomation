@@ -9,7 +9,7 @@ import time
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains
-from selenium.common.exceptions import TimeoutException, ElementNotInteractableException, NoSuchElementException
+from selenium.common.exceptions import TimeoutException, ElementNotInteractableException
 
 
 class Methods:
@@ -32,16 +32,28 @@ class Methods:
         except TimeoutException:
             raise TimeoutException(f"Element not found within the timeout period: {value}")
 
-    def hover_and_click(self, by, value):
-        element = self.wait_for_element(by, value)
+    def hover_and_click(self, by, locator):
+        element = self.wait_for_element(by, locator)
         if element:
             try:
                 hover = ActionChains(self.driver).move_to_element(element)
                 hover.perform()
                 time.sleep(1)
                 element.click()
-            except ElementNotInteractableException:
-                raise ElementNotInteractableException(f"Element not interactable: {value}")
+            except ElementNotInteractableException as e:
+                raise ElementNotInteractableException(f"Element not interactable: {str(e)}")
+
+    def hover_and_enter_text(self, by, locator, value):
+        element = self.wait_for_element(by, locator)
+        element.click()
+        if element:
+            try:
+                hover = ActionChains(self.driver).move_to_element(element)
+                hover.perform()
+                time.sleep(1)
+                element.send_keys(value)
+            except Exception as e:
+                raise ElementNotInteractableException(f"Exception caught:{str(e)}")
 
     def enter_text(self, by, value, text):
         element = self.wait_for_element(by, value)

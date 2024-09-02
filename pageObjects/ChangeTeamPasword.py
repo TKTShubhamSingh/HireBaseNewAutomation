@@ -2,13 +2,14 @@ import logging
 import time
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
 from selenium.common import NoSuchElementException, ElementNotVisibleException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from pageObjects.Methods import Methods
 
 
-class ChangeTeamPassword:
+class ChangeTeamPasword:
 
     def __init__(self, driver):
         self.driver = driver
@@ -109,6 +110,9 @@ class ChangeTeamPassword:
         except Exception as e:
             raise ElementNotVisibleException(f"Exception caught:{e}")
 
+    from selenium.webdriver.common.by import By
+    from selenium.common.exceptions import NoSuchElementException
+
     def new_pass(self, pass_1, pass_2):
         try:
             # Locate the password field
@@ -117,21 +121,30 @@ class ChangeTeamPassword:
                 element_1 = elements_1[0]
                 element_1.send_keys(pass_1)
 
-                element = self.driver.find_element(By.XPATH, "//div[@class='modal-content']//div[1]//div[1]//div["
-                                                             "1]//div[1]//span[1]//i[1]")
+                # Locate the eye icon or relevant element
+                element = self.driver.find_element(By.CSS_SELECTOR,
+                                                   "body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "span:nth-child(2) > i:nth-child(1)")
                 if element:
                     element.click()
                 print("Password field found and updated")
             else:
                 raise NoSuchElementException("Password input field not found")
 
+            # Locate the confirm password field
             elements_2 = self.driver.find_elements(By.XPATH, "//input[@id='txtConfirmPassword']")
             if elements_2:
                 element_2 = elements_2[0]
                 element_2.send_keys(pass_2)
 
-                element = self.driver.find_element(By.XPATH, "//div[@class='modal-body']//div[2]"
-                                                             "//div[1]//div[1]//div[1]//span[1]//i[1]")
+                # Locate the eye icon or relevant element for confirmation
+                element = self.driver.find_element(By.CSS_SELECTOR,
+                                                   "body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > "
+                                                   "span:nth-child(2) > i:nth-child(1)")
                 if element:
                     element.click()
                 print("Confirm password field found and updated")
@@ -143,6 +156,7 @@ class ChangeTeamPassword:
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
+
     def click_save(self):
         try:
             self.Methods.click_element(By.XPATH, "//button[@class='c-btn dark-btn  ']")
@@ -150,3 +164,4 @@ class ChangeTeamPassword:
 
         except Exception as e:
             raise NoSuchElementException(f"Exception caught:{e}")
+

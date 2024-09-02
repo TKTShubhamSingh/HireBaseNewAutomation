@@ -1,13 +1,10 @@
 import time
 from pyasn1.compat.octets import null
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 
-
 class RegisP:
-    a = null
-    reg = "//a[@class='text-pink']"
-    FN = "txtFirstName"
     LN = "txtLastName"
     phn = "//input[@id='txtPhoneNumber']"
     em = "//input[@type='email']"
@@ -65,10 +62,16 @@ class RegisP:
         self.driver = driver
 
     def regbtn(self):
-        self.driver.find_element(By.XPATH, self.reg).click()
+        try:
+            self.driver.find_element(By.XPATH, "//a[@class='text-pink']").click()
+        except Exception:
+            raise NoSuchElementException(f"Element not found")
 
     def fName(self, First_name):
-        self.driver.find_element(By.ID, self.FN).send_keys(First_name)
+        try:
+            self.driver.find_element(By.ID, "txtFirstName").send_keys(First_name)
+        except Exception:
+            raise NoSuchElementException(f"Element not found")
 
     def sName(self, Second_name):
         self.driver.find_element(By.ID, self.LN).send_keys(Second_name)

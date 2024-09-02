@@ -1,8 +1,10 @@
 import logging
-import pandas as pd
+import time
 import gspread
+import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
-from selenium.common import NoSuchElementException
+from selenium.common import (NoSuchElementException, ElementNotVisibleException, ElementNotInteractableException,
+                             ElementClickInterceptedException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
@@ -10,10 +12,10 @@ from pageObjects.Methods import Methods
 
 
 class Adding_status:
-
     def __init__(self, driver):
         self.driver = driver
         self.Methods = Methods(self.driver)
+
         logging.basicConfig(level=logging.INFO)
         self.wait = WebDriverWait(driver, 10)
         self.logger = logging.getLogger(__name__)
@@ -27,51 +29,51 @@ class Adding_status:
         data = sheet.get_all_records()
         self.df = pd.DataFrame(data)
 
-    def get_cell_value(self, row_index, column_name):
-        return self.df.at[row_index, column_name]
-
-    def username(self, Username):
+    def Username(self, Username):
         try:
-            self.Methods.enter_text(By.ID, "txtEmail", Username)
+            self.Methods.enter_text(By.XPATH, "//input[@id='txtEmail']", Username)
         except Exception as e:
-            raise NoSuchElementException(f"Exception caught: {e}")
+            raise NoSuchElementException(f"Exception caught: {str(e)}")
 
-    def password(self, Password):
+    def Password(self, Password):
         try:
             self.Methods.enter_text(By.ID, "txtPassword", Password)
         except Exception as e:
-            raise NoSuchElementException(f"Element not found: {e}")
+            raise NoSuchElementException(f"Element not found:{str(e)}")
 
-    def login_button(self):
+    def login_btn(self):
         try:
             self.Methods.click_element(By.XPATH, "//button[@type='submit']")
         except Exception as e:
-            raise NoSuchElementException(f"Exception caught: {e}")
+            raise ElementClickInterceptedException(f"Element not found:{str(e)}")
 
-    def settings(self):
+    def Settings(self):
         try:
             self.Methods.click_element(By.CSS_SELECTOR, ".bg-transparent > img")
         except Exception as e:
-            raise NoSuchElementException(f"Element not found: {e}")
+            raise ElementClickInterceptedException(f"Element not found: {str(e)}")
 
-    def status(self):
+    def Status(self):
         try:
             self.Methods.hover_and_click(By.CSS_SELECTOR, "a:nth-child(6)")
         except Exception as e:
-            raise NoSuchElementException(f"Element not found: {e}")
+            raise ElementClickInterceptedException(f"Element not clicked:{str(e)}")
 
     def Add_status(self):
         try:
-            self.Methods.click_element(By.XPATH, "//body/div[@id='root']/div[3]/div[1]/div[1]/div[1]/div["
-                                                 "2]/div[1]/div[1]/div[1]/div[2]/button[1]")
+            self.Methods.click_element(By.CSS_SELECTOR, ".c-btn.dark-btn")
         except Exception as e:
-            raise NoSuchElementException(f"Element not found: {e}")
+            raise ElementClickInterceptedException(f"Not able to click on the element:{e}")
 
-    def NewStatus(self, NewStatusName):
+    def Status_name(self, NewStatusName):
         try:
-            self.Methods.enter_text(By.NAME, "txtStatusName", NewStatusName)
+            self.Methods.enter_text(By.XPATH, "//input[@id='txtStatusName']", NewStatusName)
         except Exception as e:
-            raise NoSuchElementException(f"Element not found: {e}")
+            raise ElementNotInteractableException(f"Element not intractable: {str(e)}")
+
+    def get_cell_value(self, row_index, column_name):
+        print(f"Fetching value from row: {row_index}, column: {column_name}")
+        return self.df.at[row_index, column_name]
 
     def dropdown(self, option_text_Status):
         element = self.driver.find_element(By.XPATH, "//select[@id='drpPrimaryStatus']")
@@ -81,20 +83,17 @@ class Adding_status:
         except NoSuchElementException:
             raise NoSuchElementException(f"Option '{option_text_Status}' not found in the drop-down list")
 
-    def Visibility_drop(self, Visibility_drop):
-        element = self.driver.find_element(By.ID, "drpStatus")
+    def Visibility(self, Visibility):
+        element = self.driver.find_element(By.XPATH, "//select[@id='drpStatus']")
         option = Select(element)
 
         try:
-            option.select_by_visible_text(Visibility_drop)
-        except Exception:
-            raise NoSuchElementException(f"Option'{Visibility_drop}' not found in the drop-down list")
+            option.select_by_visible_text(Visibility)
+        except NoSuchElementException:
+            raise NoSuchElementException(f"Option '{Visibility}' not found in the drop down")
 
     def save(self):
         try:
-            self.Methods.click_element(By.CSS_SELECTOR, "button:nth-child(2)")
+            self.driver.find_element(By.CSS_SELECTOR, "button:nth-child(2)").click()
         except Exception:
             raise NoSuchElementException(f"Element not found")
-
-
-

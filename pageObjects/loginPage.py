@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class LoginP:
-    usn_username_id = "txtEmail"
+    usn_username_id = ""
     pss_password_id = "txtPassword"
     btt_login_xpath = "//button[@class='col-md-12 btn btn-login pt-2 mt-4']"
     drop_down_xpath = "//a[@class='nav-link dropdown-toggle text-primary show']"
@@ -12,8 +12,8 @@ class LoginP:
         self.driver = driver
 
     def setUserName(self, username):
-        self.driver.find_element(By.ID, self.usn_username_id).clear()
-        self.driver.find_element(By.ID, self.usn_username_id).send_keys(username)
+        self.driver.find_element(By.ID, "txtEmail").clear()
+        self.driver.find_element(By.ID, "txtEmail").send_keys(username)
 
     def setPassword(self, password):
         self.driver.find_element(By.ID, self.pss_password_id).clear()

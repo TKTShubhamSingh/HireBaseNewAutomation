@@ -8,7 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from pageObjects.ChangeTeamPasword import ChangeTeamPassword
+from pageObjects.ChangeTeamPasword import ChangeTeamPasword
 from pageObjects.Methods import Methods
 
 
@@ -32,7 +32,7 @@ class Change_TeamPasword(unittest.TestCase):
         try:
             self.driver.get("https://hirebaseproto.tktechnico.com/")
             df = pd.DataFrame(self.sheet.get_all_records())
-            self.DeleteTeam = ChangeTeamPassword(self.driver)
+            self.DeleteTeam = ChangeTeamPasword(self.driver)
             self.Methods = Methods(self.driver)
 
             for index, row in df.iterrows():
