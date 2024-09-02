@@ -21,8 +21,6 @@ class EditCrmLeads(unittest.TestCase):
         spreadsheet = client.open("Leads")
         cls.sheet = spreadsheet.worksheet('Sheet1')
 
-
-
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
@@ -50,10 +48,10 @@ class EditCrmLeads(unittest.TestCase):
                         EC.visibility_of_element_located((By.XPATH, "//i[@class='fa fa-xl fa-dashboard text-white']"))
                     )
 
-
                     self.CrmLeads.CrmDropDown()
                     self.CrmLeads.Crm()
                     time.sleep(5)
+
 
 
 
