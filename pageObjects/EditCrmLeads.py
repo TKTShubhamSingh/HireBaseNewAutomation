@@ -1,12 +1,13 @@
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
-from selenium.common import ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException, TimeoutException
+from selenium.common import ElementNotInteractableException, ElementClickInterceptedException, NoSuchElementException, \
+    TimeoutException
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pageObjects.Methods import Methods
-import time
 
 
 class EditCrm_Leads:
@@ -27,7 +28,7 @@ class EditCrm_Leads:
         self.df = pd.DataFrame(data)
 
     def Username(self, username):
-        """Enter the username in the login form."""
+        """Enter the username."""
         try:
             self.Methods.enter_text(By.XPATH, "//input[@id='txtEmail']", username)
         except ElementNotInteractableException as e:
@@ -36,7 +37,7 @@ class EditCrm_Leads:
             raise NoSuchElementException(f"Username input element not found: {str(e)}")
 
     def Password(self, password):
-        """Enter the password in the login form."""
+        """Enter the password."""
         try:
             self.Methods.enter_text(By.ID, "txtPassword", password)
         except ElementNotInteractableException as e:
@@ -71,22 +72,60 @@ class EditCrm_Leads:
         except NoSuchElementException as e:
             raise NoSuchElementException(f"CRM link element not found: {str(e)}")
 
-    def click_until_element_is_displayed(self):
-        """Click a button repeatedly until a specific element is displayed."""
-        button_xpath = "//button[@class='c-btn c-btn-gray']"
-        element_xpath = "//button[@class='c-btn c-btn-gray']"
-        max_timeout = 5  # seconds
-        wait = WebDriverWait(self.driver, max_timeout)
+    def load_btn(self):
+        try:
+            while True:
+                try:
+                    # Wait for the button to be located
+                    button = self.Methods.wait_for_element(By.XPATH, "(//button[@type='button'])[3]")
 
-        while True:
-            try:
-                # Wait for the element to be visible
-                element = wait.until(EC.visibility_of_element_located((By.XPATH, element_xpath)))
-                if element.is_displayed():
-                    print("Element is now displayed.")
-                    break
-            except TimeoutException:
-                # If element not displayed, click the button again
-                print("Element not displayed yet, clicking the button again.")
-                self.Methods.click_element(By.XPATH, button_xpath)
-                time.sleep(1)  # Small delay to prevent rapid clicking
+                    # Scroll to the button to ensure it's visible in the viewport
+                    actions = ActionChains(self.driver)
+                    actions.move_to_element(button).perform()
+
+                    # Check if the button is displayed and enabled
+                    if button.is_displayed() and button.is_enabled():
+                        # Click the button
+                        self.Methods.click_element(By.XPATH, "(//button[@type='button'])[3]")
+                    else:
+                        break
+
+                except (NoSuchElementException, ElementClickInterceptedException) as e:
+                    print(f"Exception caught: {str(e)}")
+                    # If the element is not found or is not clickable, raise the exception
+                    raise Exception(f"Exception caught: {str(e)}")
+
+        except TimeoutException:
+            print("The element was not found within the timeout period.")
+
+    def verify_title(self):
+        try:
+            # Retrieve the CompanyName column from the Google Sheet
+            company_names = self.df['CompanyName'].tolist()
+
+            # Find all elements that match the XPath
+            title_elements = self.driver.find_elements(By.XPATH, "//div[@class='title w-100']")
+
+            # Iterate over all title elements
+            for title_element in title_elements:
+                title_text = title_element.text.strip()
+
+                if title_text in company_names:
+                    print(f"Found matching title: '{title_text}'. Clicking on it.")
+
+                    actions = ActionChains(self.driver)
+                    actions.move_to_element(title_element).perform()
+
+                    # Click on the matching element
+                    title_element.click()
+                    return True
+
+            print("No matching title found in the Google Sheet.")
+            return False
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Title elements not found: {str(e)}")
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")

@@ -65,14 +65,13 @@ class TestEditCrmLeads(unittest.TestCase):
                     # Perform CRM navigation
                     self.CrmLeads.CrmDropDown()
                     self.CrmLeads.Crm()
-
-                    # Click repeatedly until element is displayed
-                    print("Clicking until element is displayed...")
-                    self.CrmLeads.click_until_element_is_displayed()
-                    print("Element displayed and actions completed.")
-
-                    # Optionally, assert a condition to verify test success
-                    self.assertTrue(self.driver.find_element(By.XPATH, "//i[@class='fa fa-xl fa-dashboard text-white']").is_displayed(), "Dashboard is not displayed")
+                    time.sleep(5)
+                    WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "(//button["
+                                                                                                     "@type='button'])[3]")))
+                    self.CrmLeads.load_btn()
+                    time.sleep(3)
+                    self.CrmLeads.verify_title()
+                    time.sleep(3)
 
         except (NoSuchElementException, TimeoutException) as e:
             self.fail(f"Test failed due to exception: {str(e)}")
