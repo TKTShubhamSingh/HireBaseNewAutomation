@@ -1,3 +1,5 @@
+import time
+
 import gspread
 import pandas as pd
 from oauth2client.service_account import ServiceAccountCredentials
@@ -5,6 +7,7 @@ from selenium.common import ElementNotInteractableException, ElementClickInterce
     TimeoutException
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pageObjects.Methods import Methods
@@ -100,13 +103,16 @@ class EditCrm_Leads:
 
     def verify_title(self):
         try:
-            # Retrieve the CompanyName column from the Google Sheet
+            element = self.Methods.wait_for_element(By.XPATH, "//body/div[@id='root']/div[@class='my-container "
+                                                              "active-cont']/div[@class='app-container']/div["
+                                                              "@class='filter-bar"
+                                                              " p-3']/div[1]")
+            element.click()
+
             company_names = self.df['CompanyName'].tolist()
 
-            # Find all elements that match the XPath
             title_elements = self.driver.find_elements(By.XPATH, "//div[@class='title w-100']")
 
-            # Iterate over all title elements
             for title_element in title_elements:
                 title_text = title_element.text.strip()
 
@@ -122,6 +128,102 @@ class EditCrm_Leads:
 
             print("No matching title found in the Google Sheet.")
             return False
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Title elements not found: {str(e)}")
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")
+
+    def click_edit(self):
+        try:
+            scroll = ActionChains(self.driver)
+            for i in range(2):
+                scroll.send_keys(Keys.ARROW_UP).perform()
+            time.sleep(2)
+
+            self.Methods.hover_and_click(By.XPATH, "//i[@class='fa-solid fa-pencil']")
+
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH,
+                                                                                   "//button[contains(@class,"
+                                                                                   "'nav-link nav-link-people "
+                                                                                   "active') and contains(text(),"
+                                                                                   "'Lead Details')]")))
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Title elements not found: {str(e)}")
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")
+
+    def LeadDetails(self, Crm_lead_Address):
+        try:
+            title = self.driver.find_element(By.XPATH,
+                                             "//button[contains(@class,'nav-link nav-link-people active') and "
+                                             "contains(text(),'Lead Details')]")
+            Leads_section = title.text.strip()
+            exp_title = "Lead Details"
+
+            if Leads_section == exp_title:
+                element = self.driver.find_element(By.XPATH, "//input[@id='txtAddress2']")
+                if element.is_enabled():
+                    self.Methods.enter_text(By.XPATH, "//input[@id='txtAddress2']", Crm_lead_Address)
+
+                else:
+                    raise ElementNotInteractableException(f"Exception caught:{str} ")
+
+            else:
+                print("Texts do not match. Handling the mismatch.")
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Title elements not found: {str(e)}")
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")
+
+    def Address_dropdown(self, Crm_lead_Address):
+        try:
+            # Locate the input field and type the initial text to trigger the drop-down
+            input_element = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "// input[ @ id = 'txtAddress2']")))
+            input_element.clear()
+            input_element.send_keys(Crm_lead_Address)  # Type to trigger the drop-down suggestions
+
+            # Wait for the drop-down to populate
+            time.sleep(2)  # Slight delay to let the drop-down populate (can adjust as needed)
+
+            # using actions key to move through the suggestions
+            for _ in range(100):  # Arbitrary number of down-arrow presses (adjust based on expected suggestions)
+                actions = ActionChains(self.driver)
+                actions.send_keys(Keys.ARROW_DOWN).perform()  # Navigate down the suggestions
+
+                # Capture the focused option's text
+                focused_option = input_element.get_attribute('value')
+
+                # Compare the focused option's text with the one from Google Sheet
+                if Crm_lead_Address.lower() in focused_option.lower():
+                    print(f"Found matching option: '{Crm_lead_Address}'. Selecting it.")
+                    actions.send_keys(Keys.ENTER).perform()  # Select the matching option
+                    return True
+
+            print(f"No matching option found for '{Crm_lead_Address}' in the drop-down.")
+            return False
+
+        except Exception as e:
+            print(f"An error occurred: {str(e)}")
+            return False
+
+    def Location(self, CrmLocation):
+        try:
+            drop_down = self.driver.find_element(By.XPATH, "//select[@name='drpLocations']")
+
+            drop_down.click()
+
+            Option = Select(drop_down)
+            Option.select_by_visible_text(f'{CrmLocation}')
 
         except NoSuchElementException as e:
             raise NoSuchElementException(f"Title elements not found: {str(e)}")

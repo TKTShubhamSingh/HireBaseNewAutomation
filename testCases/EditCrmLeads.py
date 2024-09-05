@@ -65,13 +65,22 @@ class TestEditCrmLeads(unittest.TestCase):
                     # Perform CRM navigation
                     self.CrmLeads.CrmDropDown()
                     self.CrmLeads.Crm()
-                    time.sleep(5)
+                    time.sleep(2)
                     WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, "(//button["
-                                                                                                     "@type='button'])[3]")))
+                                                                                                     "@type='button"
+                                                                                                     "'])[3]")))
                     self.CrmLeads.load_btn()
-                    time.sleep(3)
+                    time.sleep(1)
                     self.CrmLeads.verify_title()
-                    time.sleep(3)
+                    time.sleep(1)
+                    self.CrmLeads.click_edit()
+                    time.sleep(1)
+                    self.CrmLeads.LeadDetails(row['Crm_lead_Address'])
+                    time.sleep(1)
+                    self.CrmLeads.Address_dropdown(row['Crm_lead_Address'])
+                    time.sleep(1)
+                    self.CrmLeads.Location(row['CrmLocation'])
+                    time.sleep(2)
 
         except (NoSuchElementException, TimeoutException) as e:
             self.fail(f"Test failed due to exception: {str(e)}")
