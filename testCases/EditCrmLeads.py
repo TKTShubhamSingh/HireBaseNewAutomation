@@ -60,7 +60,7 @@ class TestEditCrmLeads(unittest.TestCase):
                     WebDriverWait(self.driver, 10).until(
                         EC.visibility_of_element_located((By.XPATH, "//i[@class='fa fa-xl fa-dashboard text-white']"))
                     )
-                    print("Dashboard is visible.")
+                    self.Methods.take_Screenshot("Dashboard")
 
                     # Perform CRM navigation
                     self.CrmLeads.CrmDropDown()
@@ -73,14 +73,14 @@ class TestEditCrmLeads(unittest.TestCase):
                     time.sleep(1)
                     self.CrmLeads.verify_title()
                     time.sleep(1)
+                    self.Methods.take_Screenshot("CrmLead")
                     self.CrmLeads.click_edit()
                     time.sleep(1)
                     self.CrmLeads.LeadDetails(row['Crm_lead_Address'])
                     time.sleep(1)
                     self.CrmLeads.Address_dropdown(row['Crm_lead_Address'])
-                    time.sleep(1)
                     self.CrmLeads.Location(row['CrmLocation'])
-                    time.sleep(2)
+                    self.CrmLeads.Lead_type(row['Crm_Lead_type'])
 
         except (NoSuchElementException, TimeoutException) as e:
             self.fail(f"Test failed due to exception: {str(e)}")

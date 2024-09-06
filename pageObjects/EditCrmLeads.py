@@ -160,7 +160,7 @@ class EditCrm_Leads:
 
     def LeadDetails(self, Crm_lead_Address):
         try:
-            title = self.driver.find_element(By.XPATH,
+            title = self.Methods.wait_for_element(By.XPATH,
                                              "//button[contains(@class,'nav-link nav-link-people active') and "
                                              "contains(text(),'Lead Details')]")
             Leads_section = title.text.strip()
@@ -186,24 +186,21 @@ class EditCrm_Leads:
 
     def Address_dropdown(self, Crm_lead_Address):
         try:
-            # Locate the input field and type the initial text to trigger the drop-down
+
             input_element = self.wait.until(
                 EC.visibility_of_element_located((By.XPATH, "// input[ @ id = 'txtAddress2']")))
             input_element.clear()
-            input_element.send_keys(Crm_lead_Address)  # Type to trigger the drop-down suggestions
+            input_element.send_keys(Crm_lead_Address)
 
-            # Wait for the drop-down to populate
-            time.sleep(2)  # Slight delay to let the drop-down populate (can adjust as needed)
+            time.sleep(2)
 
             # using actions key to move through the suggestions
-            for _ in range(100):  # Arbitrary number of down-arrow presses (adjust based on expected suggestions)
+            for _ in range(100):
                 actions = ActionChains(self.driver)
-                actions.send_keys(Keys.ARROW_DOWN).perform()  # Navigate down the suggestions
+                actions.send_keys(Keys.ARROW_DOWN).perform()
 
-                # Capture the focused option's text
                 focused_option = input_element.get_attribute('value')
 
-                # Compare the focused option's text with the one from Google Sheet
                 if Crm_lead_Address.lower() in focused_option.lower():
                     print(f"Found matching option: '{Crm_lead_Address}'. Selecting it.")
                     actions.send_keys(Keys.ENTER).perform()  # Select the matching option
@@ -218,12 +215,27 @@ class EditCrm_Leads:
 
     def Location(self, CrmLocation):
         try:
-            drop_down = self.driver.find_element(By.XPATH, "//select[@name='drpLocations']")
+            drop_down = self.Methods.wait_for_element(By.XPATH, "//select[@name='drpLocations']")
 
             drop_down.click()
 
             Option = Select(drop_down)
             Option.select_by_visible_text(f'{CrmLocation}')
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Title elements not found: {str(e)}")
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")
+
+    def Lead_type(self, Crm_Lead_type):
+        try:
+            Type_dropdown = self.Methods.wait_for_element(By.ID, "drpLeadType")
+            Type_dropdown.click()
+
+            Options = Select(Type_dropdown)
+            Options.select_by_visible_text(f'{Crm_Lead_type}')
 
         except NoSuchElementException as e:
             raise NoSuchElementException(f"Title elements not found: {str(e)}")
