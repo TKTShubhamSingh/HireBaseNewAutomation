@@ -161,8 +161,8 @@ class EditCrm_Leads:
     def LeadDetails(self, Crm_lead_Address):
         try:
             title = self.Methods.wait_for_element(By.XPATH,
-                                             "//button[contains(@class,'nav-link nav-link-people active') and "
-                                             "contains(text(),'Lead Details')]")
+                                                  "//button[contains(@class,'nav-link nav-link-people active') and "
+                                                  "contains(text(),'Lead Details')]")
             Leads_section = title.text.strip()
             exp_title = "Lead Details"
 
@@ -184,29 +184,29 @@ class EditCrm_Leads:
         except Exception as e:
             raise Exception(f"An error occurred: {str(e)}")
 
-    def Address_dropdown(self, Crm_lead_Address):
+    def Address_dropdown(self, option_text_Status):
         try:
 
             input_element = self.wait.until(
                 EC.visibility_of_element_located((By.XPATH, "// input[ @ id = 'txtAddress2']")))
             input_element.clear()
-            input_element.send_keys(Crm_lead_Address)
+            input_element.send_keys(option_text_Status)
 
             time.sleep(2)
 
             # using actions key to move through the suggestions
-            for _ in range(100):
+            for _ in range(1000000):
                 actions = ActionChains(self.driver)
                 actions.send_keys(Keys.ARROW_DOWN).perform()
 
                 focused_option = input_element.get_attribute('value')
 
-                if Crm_lead_Address.lower() in focused_option.lower():
-                    print(f"Found matching option: '{Crm_lead_Address}'. Selecting it.")
+                if option_text_Status.lower() in focused_option.lower():
+                    print(f"Found matching option: '{option_text_Status}'. Selecting it.")
                     actions.send_keys(Keys.ENTER).perform()  # Select the matching option
                     return True
 
-            print(f"No matching option found for '{Crm_lead_Address}' in the drop-down.")
+            print(f"No matching option found for '{option_text_Status}' in the drop-down.")
             return False
 
         except Exception as e:
@@ -222,8 +222,6 @@ class EditCrm_Leads:
             Option = Select(drop_down)
             Option.select_by_visible_text(f'{CrmLocation}')
 
-        except NoSuchElementException as e:
-            raise NoSuchElementException(f"Title elements not found: {str(e)}")
         except ElementClickInterceptedException as e:
             raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
         except Exception as e:
@@ -237,9 +235,99 @@ class EditCrm_Leads:
             Options = Select(Type_dropdown)
             Options.select_by_visible_text(f'{Crm_Lead_type}')
 
-        except NoSuchElementException as e:
-            raise NoSuchElementException(f"Title elements not found: {str(e)}")
         except ElementClickInterceptedException as e:
             raise ElementClickInterceptedException(f"Exception caught while clicking on title: {str(e)}")
         except Exception as e:
             raise Exception(f"An error occurred: {str(e)}")
+
+    def company_name(self, crm_company_name):
+        try:
+            element = self.Methods.wait_for_element(By.ID, "txtLeadName")
+
+            if element.is_enabled():
+                element.clear()
+                element.send_keys("crm_company_name")
+            else:
+                raise ElementNotInteractableException
+
+        except ElementNotInteractableException as e:
+            raise ElementNotInteractableException(f"Failed to enter value in the text field, Exception caught{str(e)}")
+        except Exception as e:
+            raise Exception(f"An error occurred: {str(e)}")
+
+    def Company_Phone_number(self, crm_company_Phone_number):
+        try:
+            element = self.driver.find_element(By.ID, "txtLeadPhone")
+
+            if element.is_enabled():
+                element.clear()
+                element.send_keys(crm_company_Phone_number)
+            else:
+                raise ElementNotInteractableException
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Exception caught:{str(e)}")
+
+    def company_fax(self, crm_company_fax):
+        try:
+            element = self.driver.find_element(By.XPATH, "//input[@id='txtFaxNumber']")
+
+            if element.is_enabled():
+                element.clear()
+                element.send_keys(crm_company_fax)
+            else:
+                raise ElementNotInteractableException
+
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Exception caught:{str(e)}")
+
+    def Company_email(self, crm_company_email):
+        try:
+            element = self.driver.find_element(By.ID, "txtLeadEmail")
+
+            if element.is_enabled():
+                element.clear()
+                element.send_keys(crm_company_email)
+            else:
+                raise ElementNotInteractableException
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Exception caught:{str(e)}")
+
+
+    def Website(self, crm_website):
+        try:
+            element = self.driver.find_element(By.ID, "txtWebsite")
+
+            if element.is_enabled():
+                element.clear()
+                element.send_keys(crm_website)
+            else:
+                raise ElementNotInteractableException
+        except NoSuchElementException as e:
+            raise NoSuchElementException(f"Exception caught element not found:{str(e)}")
+
+    def Assigned(self, crm_Assigned):
+        try:
+            element = self.driver.find_element(By., "")
+            element.click()
+            options = Select(element)
+
+            options.select_by_visible_text(crm_Assigned)
+
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Element not found")
+
+    def Assigned2(self, crm_Assigned_2):
+        try:
+            element = self.driver.find_element(By.CSS_SELECTOR,"div.my-container.active-cont div.app-container div.px-3:nth-child(2) div.row div.col-md-12 div.tab-content div.tab-pane.fade.show.active:nth-child(2) div.card.a-card-wrap div.row.m-0.px-3:nth-child(7) div.col-md-4:nth-child(2) div.form-group div.e-input-group div.e-input-in-wrap > span.e-input-group.e-control-wrapper.e-ddl.e-lib.e-keyboard.e-valid-input")
+
+            element.click()
+            options = Select(element)
+            options.select_by_visible_text(crm_Assigned_2)
+        except ElementClickInterceptedException as e:
+            raise ElementClickInterceptedException(f"Element not found")
+
+
+
+
+

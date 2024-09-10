@@ -22,9 +22,7 @@ class DeletingPosition(unittest.TestCase):
         spreadsheet = client.open('Leads')
         cls.sheet = spreadsheet.worksheet("Sheet1")
 
-        logging.basicConfig(level=logging.INFO,
-                            handlers=[logging.FileHandler("log/automation.log"), logging.StreamHandler()])
-        cls.logger = logging.getLogger(__name__)
+
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -35,7 +33,6 @@ class DeletingPosition(unittest.TestCase):
         timestamp = time.strftime("%Y%m%d-%H%M%S")
         screenshot_name = os.path.join('Screenshots', f"{name}_{timestamp}.png")
         self.driver.save_screenshot(screenshot_name)
-        self.logger.info(f"Screenshot saved: {screenshot_name}")
 
     def test_DeletingPostiton(self):
         try:
@@ -69,7 +66,7 @@ class DeletingPosition(unittest.TestCase):
                     time.sleep(5)
 
         except Exception as e:
-            self.logger.error(f"Test failed: {e}")
+
             self.take_Screenshot("Error")
             self.fail(f"Test failed due to error: {e}")
 

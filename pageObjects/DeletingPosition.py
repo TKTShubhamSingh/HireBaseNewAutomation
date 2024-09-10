@@ -64,14 +64,14 @@ class DeletingPositions:
     def click_Position(self):
         self.hover_and_click(By.XPATH, "//i[@class='fa-solid fa-street-view pe-2']")
 
-    def searchPosition(self, position):
+    def searchPosition(self, Dposition):
         element = self.wait_for_element(By.XPATH, "//input[@placeholder='Search']")
         if element:
             hover = ActionChains(self.driver).move_to_element(element)
             hover.perform()
             time.sleep(2)
-            element.send_keys(position)
-            self.logger.info(f"Search text entered: {position}")
+            element.send_keys(Dposition)
+            self.logger.info(f"Search text entered: {Dposition}")
             time.sleep(2)
             keyboard = Controller()
             keyboard.press(Key.enter)

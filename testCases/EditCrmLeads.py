@@ -81,6 +81,29 @@ class TestEditCrmLeads(unittest.TestCase):
                     self.CrmLeads.Address_dropdown(row['Crm_lead_Address'])
                     self.CrmLeads.Location(row['CrmLocation'])
                     self.CrmLeads.Lead_type(row['Crm_Lead_type'])
+                    self.CrmLeads.company_name(row['crm_company_name'])
+                    self.CrmLeads.Company_Phone_number(row['crm_company_Phone_number'])
+                    self.CrmLeads.company_fax(row['crm_company_fax'])
+                    try:
+                        element = self.driver.find_element(By.CSS_SELECTOR,
+                                                           "div[class='col-md-8'] label[class='field-label-value']")
+                        text = element.text
+
+                        if text.strip():
+                            print("Text field is not empty. Continuing...")
+
+                            time.sleep(10)
+                        else:
+                            print("Text field is empty. Exiting...")
+
+                    except NoSuchElementException:
+                        print("Element not found. Exiting...")
+                    self.CrmLeads.Company_email(row['crm_company_email'])
+                    self.CrmLeads.Website(row['crm_website'])
+                    time.sleep(2)
+                    self.CrmLeads.Assigned(row['crm_Assigned'])
+                    time.sleep(2)
+                    self.CrmLeads.Assigned2(row['crm_Assigned_2'])
 
         except (NoSuchElementException, TimeoutException) as e:
             self.fail(f"Test failed due to exception: {str(e)}")
