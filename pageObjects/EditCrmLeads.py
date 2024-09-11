@@ -308,7 +308,7 @@ class EditCrm_Leads:
 
     def Assigned(self, crm_Assigned):
         try:
-            element = self.driver.find_element(By., "")
+            element = self.driver.find_element(By.CSS_SELECTOR,"")
             element.click()
             options = Select(element)
 
