@@ -55,8 +55,6 @@ class Lead:
     def address(self, address):
         self.driver.find_element(By.XPATH, "//input[@id='txtAddress2']").send_keys(address)
 
-
-
     def location(self, loca):
         self.driver.find_element(By.ID, self.loc).send_keys(loca)
 

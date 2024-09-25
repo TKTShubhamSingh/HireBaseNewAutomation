@@ -194,7 +194,6 @@ class EditCrm_Leads:
 
             time.sleep(2)
 
-            # using actions key to move through the suggestions
             for _ in range(1000000):
                 actions = ActionChains(self.driver)
                 actions.send_keys(Keys.ARROW_DOWN).perform()
@@ -293,7 +292,6 @@ class EditCrm_Leads:
         except NoSuchElementException as e:
             raise NoSuchElementException(f"Exception caught:{str(e)}")
 
-
     def Website(self, crm_website):
         try:
             element = self.driver.find_element(By.ID, "txtWebsite")
@@ -308,26 +306,39 @@ class EditCrm_Leads:
 
     def Assigned(self, crm_Assigned):
         try:
-            element = self.driver.find_element(By.CSS_SELECTOR,"")
-            element.click()
-            options = Select(element)
 
-            options.select_by_visible_text(crm_Assigned)
+            element = self.driver.find_element(By.XPATH,
+                                               "/html[1]/body[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]/div["
+                                               "1]/div[2]/div[1]/div[7]/div[1]/div[1]/div[1]/div[1]/span[1]")
+            element.click()
+            options = self.driver.find_elements(By.XPATH, "//li")
+
+            for option in options:
+                if option.text == crm_Assigned:
+                    option.click()
+                    break
 
         except ElementClickInterceptedException as e:
-            raise ElementClickInterceptedException(f"Element not found")
+            raise ElementClickInterceptedException(f"Error while clicking element: {str(e)}")
 
     def Assigned2(self, crm_Assigned_2):
         try:
-            element = self.driver.find_element(By.CSS_SELECTOR,"div.my-container.active-cont div.app-container div.px-3:nth-child(2) div.row div.col-md-12 div.tab-content div.tab-pane.fade.show.active:nth-child(2) div.card.a-card-wrap div.row.m-0.px-3:nth-child(7) div.col-md-4:nth-child(2) div.form-group div.e-input-group div.e-input-in-wrap > span.e-input-group.e-control-wrapper.e-ddl.e-lib.e-keyboard.e-valid-input")
+            element = self.driver.find_element(By.XPATH,
+                                               "/html[1]/body[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]/div[1]/div["
+                                               "2]/div[1]/div[7]/div[2]/div[1]/div[1]/div[1]/span[1]")
 
             element.click()
-            options = Select(element)
-            options.select_by_visible_text(crm_Assigned_2)
+            options = self.Methods.wait_for_element(By.XPATH, "//li")
+
+            for option in options:
+                if option.text == crm_Assigned_2:
+                    option.click()
+                    break
         except ElementClickInterceptedException as e:
             raise ElementClickInterceptedException(f"Element not found")
 
 
-
-
-
+    def Sales_Manger(self, Sales_Manger):
+        try:
+            element = self.driver.find_element(By.XPATH, "/html[1]/body[1]/div[1]/div[3]/div[1]/div[2]/div[1]/div[1]/div[1]/div["
+                                           "2]/div[1]/div[7]/div[3]/div[1]/div[1]/div[1]/span[1]")
